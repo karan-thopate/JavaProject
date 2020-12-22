@@ -1,0 +1,87 @@
+test=# create table Users(UserName varchar(20) primary key,Password varchar(20));
+CREATE TABLE
+test=# insert into Users values('karan','karan21');
+INSERT 0 1
+test=# insert into Users values('ashwini','ashwini123');
+INSERT 0 1
+
+test=# create table Rooms(RNO int primary key,RType varchar(20),RRent int,Status varchar(20));
+CREATE TABLE
+test=# insert into Rooms values(101,'Deluxe',1500,'NotAvailable');
+INSERT 0 1
+test=# insert into Rooms values(102,'Deluxe',1500,'NotAvailable');
+INSERT 0 1
+test=# insert into Rooms values(103,'SuperDeluxe',2000,'NotAvailable');
+INSERT 0 1
+test=# 
+
+test=# create table Booking(BNo varchar(20) primary key,CCode varchar(20),RNo int references Rooms(Rno) on delete cascade on update cascade,DOA date,NoOfP int,PDetails varchar(20));
+CREATE TABLE
+test=# insert into Booking values(B001,C001,101,'3/5/2009',2,'Friends');
+ERROR:  column "b001" does not exist
+LINE 1: insert into Booking values(B001,C001,101,'3/5/2009',2,'Frien...
+                                   ^
+test=# insert into Booking values('B001','C001',101,'3/5/2009',2,'Friends');
+INSERT 0 1
+test=# insert into Booking values('B002','C002',102,'3/16/2009',3,'Friends');
+INSERT 0 1
+test=# insert into Booking values('B003','C003',103,'3/16/2009',2,'With Family');
+
+test=# create table Billing(BillNo int primary key,BNo varchar references booking(BNo) on delete cascade on update cascade,DDate date,BDays int,TRR int,SC int,GBA int,ST int,DA int,NBA int,Billingmode varchar(20),AR int,CCNo varchar(20),OSA int);
+CREATE TABLE
+ 
+                                                              ^
+test=# create table Customer(CCode varchar(20) primary key,LName varchar(20),FName varchar(20),Sex varchar(20),Age int,Mstatus varchar(20),Nationality varchar(20),Country varchar(20),PPNo int double,VNo int,RAddress varchar(20),OAddress varchar(20),PhNo int double,Email varchar(20),status varchar(20));
+ERROR:  syntax error at or near "double"
+LINE 1: ...ionality varchar(20),Country varchar(20),PPNo int double,VNo...
+                                                             ^
+test=# create table Customer(CCode varchar(20) primary key,LName varchar(20),FName varchar(20),Sex varchar(20),Age int,Mstatus varchar(20),Nationality varchar(20),Country varchar(20),PPNo int,VNo int,RAddress varchar(20),OAddress varchar(20),PhNo int,Email varchar(20),status varchar(20));
+CREATE TABLE
+test=# select * from Customer                                                                                          
+;
+ ccode | lname | fname | sex | age | mstatus | nationality | country | ppno | vno | raddress | oaddress | phno | email | status 
+-------+-------+-------+-----+-----+---------+-------------+---------+------+-----+----------+----------+------+-------+--------
+(0 rows)
+
+test=# inset into Customer values('C001','kumar','aman','male','21','unmarried','indian','NA','0','0','sukhbag','None','12345678','kumaraman@123gmail.com','reguler');
+ERROR:  syntax error at or near "inset"
+LINE 1: inset into Customer values('C001','kumar','aman','male','21'...
+        ^
+test=# insert into Customer values('C001','kumar','aman','male','21','unmarried','indian','NA','0','0','sukhbag','None','12345678','kumaraman@123gmail.com','reguler');
+ERROR:  value too long for type character varying(20)
+test=# deop table Customer;
+ERROR:  syntax error at or near "deop"
+LINE 1: deop table Customer;
+        ^
+test=# drop table Customer;
+DROP TABLE
+test=# create table Customer(CCode varchar(20) primary key,LName varchar(20),FName varchar(20),Sex varchar(20),Age int,Mstatus varchar(20),Nationality varchar(20),Country varchar(20),PPNo int,VNo int,RAddress varchar(20),OAddress varchar(20),PhNo int,Email varchar(50),status varchar(20));
+CREATE TABLE
+test=# insert into Customer values('C001','kumar','aman','male','21','unmarried','indian','NA','0','0','sukhbag','None','12345678','kumaraman@123gmail.com','reguler');
+INSERT 0 1
+test=# insert into Customer values('C002','kulkarni','ram','male','21','unmarried','indian','NA','0','0','sukhbag','pune','12345678','kulkarniraju@234gmail.com','first');
+INSERT 0 1
+test=# 
+test=# select * from billing;
+test=# deop table billing;
+ERROR:  syntax error at or near "deop"
+LINE 1: deop table billing;
+        ^
+test=# create table Billing(BillNo varchar(20) primary key,BNo varchar references booking(BNo) on delete cascade on update cascade,DDate date,BDays int,TRR int,SC int,GBA int,ST int,DA int,NBA int,Billingmode varchar(20),AR int,CCNo varchar(20),OSA int);
+CREATE TABLEe table Billing(BillNo int primary key,BNo varchar references booking(BNo) on delete cascade on update cascade,DDate date,BDays intest=# select * from billing;
+ billno | bno | ddate | bdays | trr | sc | gba | st | da | nba | billingmode | ar | ccno | osa 
+--------+-----+-------+-------+-----+----+-----+----+----+-----+-------------+----+------+-----
+(0 rows)
+
+test=# insert into Billing values(BNo001,'B001','3/6/2009','1','1500','1500','3000','300','0','330','ByCash',3300,'','0');
+ERROR:  column "bno001" does not exist
+LINE 1: insert into Billing values(BNo001,'B001','3/6/2009','1','150...
+                                   ^
+HINT:  Perhaps you meant to reference the column "billing.bno".
+test=# insert into Billing values('BNo001','B001','3/6/2009','1','1500','1500','3000','300','0','330','ByCash',3300,'','0');
+INSERT 0 1
+test=# insert into Billing values('BNo002','B002','4/7/2009','4','3300','1600','2000','400','0','430','ByCash',3300,'','0');
+INSERT 0 1
+test=# 
+
+
